@@ -1,0 +1,1 @@
+# ruby_naitei_01_10_2024_job_portal
