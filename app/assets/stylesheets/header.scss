@@ -1,0 +1,67 @@
+@import "bootstrap";
+@import "variables"; 
+
+.header {
+  background-color: $whiteColor;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.header-logo img {
+  height: 80px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  
+  a {
+  margin-right: 1rem;
+  color: $textDark;
+  text-decoration: none;
+  }
+}
+
+.btn-login {
+  background-color: $btnBlue;
+  color: $whiteColor !important;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: $btnBlueHover;
+  }
+}
+
+
+
+.switch-language {
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-right: 0.5rem;
+    text-decoration: none;
+  }
+}
+
+.separator {
+  margin-right: 0.5rem;
+}
+
+.left-menu {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-nav {
+  a {
+    margin-right: 1rem;
+    color: $textDark;
+    text-decoration: none;
+  }
+}

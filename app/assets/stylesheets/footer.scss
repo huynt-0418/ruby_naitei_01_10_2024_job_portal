@@ -1,0 +1,27 @@
+@import "bootstrap";
+@import "variables";
+
+.footer {
+  background-color: $backgroundFooter;
+  color: $whiteColor;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 8rem;
+}
+
+.footer-section h5 {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+.footer-section ul li a {
+  color: $textGray;
+  text-decoration: none;
+}
+.footer-section ul li a:hover {
+  color: $whiteColor;
+}
