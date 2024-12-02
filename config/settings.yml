@@ -13,3 +13,4 @@ image:
 jobs:
   page_size: 4
   description_max_length: 100
+  filter_locations: ["Hà Nội", "Đà Nẵng", "Hồ Chí Minh"]
