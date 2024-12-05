@@ -13,8 +13,8 @@
         <small class="text-muted"><%= time_ago_in_words(job.created_at) %></small>
       </div>
       <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-primary"><%= t "jobs.view_details" %></button>
-      <button class="btn btn-outline-primary"><%= t "jobs.apply_now" %></button>
+        <%= link_to t("jobs.view_details"), job_path(id: job.id), class: "btn btn-primary" %>
+        <button class="btn btn-outline-primary"><%= t "jobs.apply_now" %></button>
       </div>
     </div>
   </div>

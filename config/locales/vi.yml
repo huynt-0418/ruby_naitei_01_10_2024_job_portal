@@ -50,6 +50,18 @@ vi:
       danang: "Đà Nẵng"
       others: "Khác"
     result_for_keyword: "Kết quả tìm kiếm cho từ khóa"
+    job_not_found: "Không tìm thấy công việc nào phù hợp"
+    applications: "đơn ứng tuyển"
+    posted: "Đăng"
+    share: "Chia sẻ công việc này"
+    save: "Lưu công việc này"
+    apply_this_position: "Nộp đơn cho vị trí này"
+    company: "Công ty"
+    experience: "Mức độ kinh nghiệm"
+    salary: "Mức lương đề xuất"
+    description: "Mô tả công việc"
+    requirements: "Yêu cầu công việc"
+    related_jobs: "Công việc liên quan"
   login:
     login: "Đăng nhập"
     title: "Đăng nhập vào tài khoản của bạn"
@@ -64,6 +76,7 @@ vi:
     login:
       success: "Đăng nhập thành công"
       error: "Email hoặc mật khẩu không chính xác"
+  ago: "trước"
   datetime:
     distance_in_words:
       less_than_x_seconds:
