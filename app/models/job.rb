@@ -3,7 +3,7 @@ class Job < ApplicationRecord
   has_many :applications, dependent: :destroy
   has_many :applicants, through: :applications, source: :user
 
-  enum work_type: {remote: 0, office: 1, hybrid: 2, oversea: 3}
+  enum work_type: {Remote: 0, Office: 1, Hybrid: 2, Oversea: 3}
   enum status: {draft: 0, pending: 1, active: 2, closed: 3}
 
   scope :filter_by_work_type, lambda {|work_types|
@@ -36,5 +36,11 @@ class Job < ApplicationRecord
       "LOWER(companies.name) LIKE :keyword",
       keyword: "%#{keyword.downcase}%"
     ).joins(:company)
+  }
+
+  scope :related_jobs, lambda {|job|
+    where.not(id: job.id)
+         .where(company_id: job.company_id)
+         .limit(Settings.jobs.related_jobs_size)
   }
 end
