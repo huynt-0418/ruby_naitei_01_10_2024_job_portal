@@ -76,6 +76,19 @@ vi:
     login:
       success: "Đăng nhập thành công"
       error: "Email hoặc mật khẩu không chính xác"
+    update_profile:
+      update_cv_success: "Cập nhật CV thành công"
+      update_bio_success: "Cập nhật bio thành công"
+      update_skills_success: "Cập nhật kỹ năng thành công"
+    create_project:
+      success: "Tạo dự án thành công"
+      failed: "Tạo dự án thất bại"
+    update_project:
+      success: "Cập nhật dự án thành công"
+      failed: "Cập nhật dự án thất bại"
+    delete_project:
+      success: "Xóa dự án thành công"
+    error: "Đã xảy ra lỗi"
   ago: "trước"
   company:
     view_details: "Xem chi tiết"
@@ -84,6 +97,52 @@ vi:
     search_placeholder: "Tìm kiếm tên công ty"
     search: "Tìm kiếm"
     view_more: "Xem thêm"
+  user:
+    success_update: "Cập nhật thành công"
+    project:
+      add_tech: "Nhập 1 công nghệ"
+      add: "Thêm"
+      update_project: "Cập nhật dự án"
+      confirm_delete: "Bạn có chắc chắn muốn xóa dự án này không?"
+      role: "Vai trò: %{role}"
+      projects: "Dự án"
+      add_project: "Thêm dự án"
+      title: "Tiêu đề"
+      description: "Mô tả"
+      role_field: "Vai trò"
+      start_date: "Ngày bắt đầu"
+      end_date: "Ngày kết thúc"
+    skills:
+      year_experience: "Năm kinh nghiệm"
+      years: "năm"
+      skill: "Kỹ năng"
+      skill_name: "Tên kỹ năng"
+      edit_skill: "Chỉnh sửa kỹ năng"
+      add_skill: "Thêm kỹ năng"
+    profile:
+      upload_avatar: "Tải ảnh đại diện"
+      social_links: "Liên kết mạng xã hội"
+      edit_social_links: "Chỉnh sửa liên kết mạng xã hội"
+      current_cv: "CV hiện tại:"
+      download_cv: "Tải CV"
+      upload_cv: "Tải lên CV (.pdf)"
+      upload: "Tải lên"
+      personal_info: "Thông tin cá nhân"
+      work_experience: "Kinh nghiệm làm việc"
+      recently_applied: "Công việc ứng tuyển gần đây"
+      edit_profile: "Chỉnh sửa hồ sơ"
+      full_name: "Họ và tên"
+      phone: "Số điện thoại"
+      address: "Địa chỉ"
+      dob: "Ngày sinh"
+      gender: "Giới tính"
+      education: "Trình độ học vấn"
+      expected_salary: "Mức lương mong muốn"
+      about_me: "Giới thiệu bản thân"
+    modal:
+      save: "Lưu"
+      cancel: "Hủy"
+      remove: "Xóa"
   datetime:
     distance_in_words:
       less_than_x_seconds:

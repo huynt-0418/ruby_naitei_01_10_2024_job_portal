@@ -18,10 +18,10 @@
           <b class="caret"></b>
         </div>
         <ul class="dropdown-menu" id="dropdown-menu">
-          <li class="dropdown-link"><%= link_to t("header.profile"), "#" %></li>
-          <li class="dropdown-link"><%= link_to t("header.settings"), "#" %></li>
+          <li class="dropdown-link"><%= link_to t("header.profile"), user_path(id: current_user.id), class: "d-block w-100" %></li>
+          <li class="dropdown-link"><%= link_to t("header.settings"), "#", class: "d-block w-100" %></li>
           <li class="divider"></li>
-          <li class="dropdown-link"><%= link_to t("header.logout"), logout_path, data: { turbo_method: :delete } %></li>
+          <li class="dropdown-link"><%= link_to t("header.logout"), logout_path, data: { turbo_method: :delete }, class: "d-block w-100" %></li>
         </ul>
       </div>
     <% else %>

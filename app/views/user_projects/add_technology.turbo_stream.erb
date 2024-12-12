@@ -1,0 +1,3 @@
+<%= turbo_stream.append "technology-list" do %>
+  <%= render partial: "user_projects/technology", locals: { technology: @technology, index: @index } %>
+<% end %>

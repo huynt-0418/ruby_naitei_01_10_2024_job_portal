@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_one :user_profile, dependent: :destroy
+  accepts_nested_attributes_for :user_profile, reject_if: :all_blank
   has_many :applications, dependent: :destroy
   has_many :applied_jobs, through: :applications, source: :job
   has_many :company_reviews, dependent: :destroy
@@ -10,9 +11,24 @@ class User < ApplicationRecord
   has_many :followed_companies, through: :company_followers, source: :company
   has_many :notifications, dependent: :destroy
   has_many :user_social_links, dependent: :destroy
+  accepts_nested_attributes_for :user_social_links, allow_destroy: true
+  delegate :user_projects, to: :user_profile
 
   enum role: {user: 0, business: 1, admin: 2}
 
+  PERMITTED_PARAMS = [
+    :full_name,
+    :email,
+    :dob,
+    :phone,
+    :password,
+    :password_confirmation,
+    :avatar,
+    {user_profile_attributes: %i(
+      id gender current_address education expected_salary
+    )},
+    {user_social_links_attributes: %i(id platform url _destroy)}
+  ].freeze
   validates :email, presence: true, uniqueness: true,
 format: {with: URI::MailTo::EMAIL_REGEXP}
   validates :full_name, presence: true,

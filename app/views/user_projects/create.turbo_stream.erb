@@ -1,0 +1,3 @@
+<%= turbo_stream.append "projects-list" do %>
+  <%= render partial: "users/project", locals: { project: @user_project } %>
+<% end %>

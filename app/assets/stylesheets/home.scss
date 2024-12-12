@@ -88,3 +88,16 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; 
+  object-fit: cover;
+  display: block; 
+}
+
+.border_tabpane {
+  border: 1px solid $borderGray2;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}

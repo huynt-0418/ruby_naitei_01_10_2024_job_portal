@@ -1,0 +1,346 @@
+<div class="container mt-5 row">
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-body text-center align-items-center d-flex flex-column">
+        <%= @user.avatar.attached? ? image_tag(url_for(@user.avatar), class: "avatar") : image_tag("https://via.placeholder.com/150", class: "avatar") %>
+        <h3 class="card-title"><%= @user.full_name %></h3>
+        <p class="card-text text-muted"><%= @user.email %></p>
+        <%= form_with model: @user, url: user_path(id: @user.id), method: :patch, local: true do |form| %>
+          <%= form.file_field :avatar, class: "form-control" %>
+          <%= form.submit t("user.profile.upload_avatar"), class: "btn btn-primary mt-2 w-100" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="fs-5 fw-bold"><%= t "user.profile.social_links" %></span>
+          <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editSocialModal">
+            <i class="fas fa-edit"></i>
+          </button>
+
+          <div class="modal fade" id="editSocialModal" tabindex="-1" aria-labelledby="editSocialModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editSocialModalLabel"><%= t "user.profile.edit_social_links" %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <%= form_with model: @user, url: user_path(id: @user.id), method: :patch, local: true do |f| %>
+                    <div data-controller="social-link">
+                      <div data-social-link-target="socialLinkForm">
+                        <% @user.user_social_links.each_with_index do |social_link, index| %>
+                          <div class="row mb-2" data-social-link-target="row">
+                            <%= f.fields_for :user_social_links, social_link do |link_form| %>
+                              <div class="col-md-2">
+                                  <%= link_form.select :platform, UserSocialLink.platforms.keys.map { |platform| [platform.humanize, platform] }, {}, class: "form-select" %>
+                              </div>
+                              <div class="col-md-9">
+                                  <%= link_form.text_field :url, class: "form-control" %>
+                              </div>
+                              <div class="col-md-1">
+                                <%= link_form.hidden_field :_destroy, value: false, data: { destroyField: true } %>
+                                <button type="button" class="btn btn-danger" data-action="social-link#removeRow">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </div>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="my-3 d-flex justify-content-center">
+                        <button type="button" id="add-social-link" class="btn btn-outline-primary rounded-circle" data-action="social-link#addRow">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                      <div class="col-12 text-end">
+                        <%= f.submit t("user.modal.save"), class: "btn btn-primary" %>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t "user.modal.cancel" %></button>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% @social_links.each do |social_link| %>
+          <% if social_link.platform == "linkedin" %>
+            <a href="<%= social_link.url %>" class="mb-2 text-decoration-none">
+              <i class="fab fa-linkedin"></i>     LinkedIn
+            </a>
+          <% elsif social_link.platform == "github" %>
+            <a href="<%= social_link.url %>" class="mb-2 text-decoration-none">
+              <i class="fab fa-github"></i>     GitHub
+            </a>
+          <% elsif social_link.platform == "facebook" %>
+            <a href="<%= social_link.url %>" class="mb-2 text-decoration-none">
+              <i class="fab fa-facebook"></i>     Facebook
+            </a>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">Resume</h5>
+        <% if @profile.cv_file.attached? %>
+          <p>
+            <i class="fas fa-file-pdf"></i> <%= t "user.profile.current_cv" %>
+            <%= link_to t("user.profile.download_cv"), rails_blob_path(@profile.cv_file, disposition: "attachment"), target: "_blank" %>
+          </p>
+        <% end %>
+          <%= form_with model: @user_profile, url: user_user_profile_path(user_id: current_user.id, id: @profile.id), method: :patch, local: true do |f| %>
+          <div class="form-group">
+            <i class="fas fa-file-pdf"></i>
+            <%= f.label :cv_file, t("user.profile.upload_cv") %>
+            <%= f.file_field :cv_file, class: "form-control mt-1" %>
+          </div>
+          <%= f.submit t("user.profile.upload"), class: "btn btn-primary mt-2 w-100" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="personal-details-tab" data-bs-toggle="tab" data-bs-target="#personal-details" type="button" role="tab" aria-controls="personal-details" aria-selected="true">
+          <%= t "user.profile.personal_info" %>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="work-experience-tab" data-bs-toggle="tab" data-bs-target="#work-experience" type="button" role="tab" aria-controls="work-experience" aria-selected="false">
+          <%= t "user.profile.work_experience" %>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="recent-jobs-tab" data-bs-toggle="tab" data-bs-target="#recent-jobs" type="button" role="tab" aria-controls="recent-jobs" aria-selected="false">
+        <%= t "user.profile.recently_applied" %>
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content pt-3 border_tabpane" id="profileTabsContent">
+      <div class="tab-pane fade show active" id="personal-details" role="tabpanel" aria-labelledby="personal-details-tab">
+        <div class="card border-0">
+          <div class="px-3 d-flex justify-content-between align-items-center">
+            <span class="fs-4"><%= t "user.profile.personal_info" %></span>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+              <i class="fas fa-edit"></i>
+            </button>
+
+            <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel"><%= t "user.profile.edit_profile" %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_with model: @user, url: user_path(id: @user.id), method: :patch, local: true, class: "row g-3" do |f| %>
+                      <div class="col-md-12">
+                        <%= f.label :full_name, t("user.profile.full_name"), class: "form-label" %>
+                        <%= f.text_field :full_name, class: "form-control", required: true %>
+                      </div>
+                      <div class="col-md-6">
+                        <%= f.label :phone, t("user.profile.phone"), class: "form-label" %>
+                        <%= f.telephone_field :phone, class: "form-control", required: true %>
+                      </div>
+                      <div class="col-md-6">
+                        <%= f.label :dob, t("user.profile.dob"), class: "form-label" %>
+                        <%= f.date_field :dob, class: "form-control", required: true %>
+                      </div>
+                      <%= f.fields_for :user_profile do |profile_form| %>
+                        <div class="col-md-6">
+                          <%= profile_form.label :gender, t("user.profile.gender"), class: "form-label" %>
+                          <%= profile_form.select :gender,  [["Male", "male"], ["Female", "female"], ["Other", "other"]], {}, class: "form-select" %>
+                        </div>
+                        <div class="col-md-6">
+                          <%= profile_form.label :education, t("user.profile.education"), class: "form-label" %>
+                          <%= profile_form.text_field :education, class: "form-control" %>
+                        </div>
+                        <div class="col-md-6">
+                          <%= profile_form.label :current_address, t("user.profile.address"), class: "form-label" %>
+                          <%= profile_form.text_field :current_address, class: "form-control" %>
+                        </div>
+                        <div class="col-md-6">
+                          <%= profile_form.label :expected_salary, t("user.profile.expected_salary"), class: "form-label" %>
+                          <%= profile_form.text_field :expected_salary, class: "form-control" %>
+                        </div>
+                      <% end %>
+                      <div class="col-12 text-end">
+                        <%= f.submit t("user.modal.save"), class: "btn btn-primary" %>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t "user.modal.cancel" %></button>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-2"><%= t "user.profile.full_name" %></dt>
+              <dd class="col-sm-10"><%= @user.full_name %></dd>
+
+              <dt class="col-sm-2"><%= t "user.profile.dob" %></dt>
+              <dd class="col-sm-10"><%= @user.dob %></dd>
+              
+              <dt class="col-sm-2"><%= t "user.profile.phone" %></dt>
+              <dd class="col-sm-10"><%= @user.phone %></dd>
+
+              <dt class="col-sm-2"><%= t "user.profile.gender" %></dt>
+              <dd class="col-sm-10"><%= @profile.gender.capitalize %></dd>
+
+              <dt class="col-sm-2"><%= t "user.profile.address" %></dt>
+              <dd class="col-sm-10"><%= @profile.current_address %></dd>
+              
+              <dt class="col-sm-2"><%= t "user.profile.education" %></dt>
+              <dd class="col-sm-10"><%= @profile.education %></dd>
+
+              <dt class="col-sm-2"><%= t "user.profile.expected_salary" %></dt>
+              <dd class="col-sm-10"><%= @profile.expected_salary %></dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="card border-0">
+          <div class="px-3 d-flex justify-content-between align-items-center">
+            <span class="fs-4"><%= t "user.profile.about_me" %></span>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editBioModal">
+              <i class="fas fa-edit"></i>
+            </button>
+
+            <div class="modal fade" id="editBioModal" tabindex="-1" aria-labelledby="editBioModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editBioModalLabel"><%= t "user.profile.edit_profile" %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_with model: @user_profile, url: user_user_profile_path(id: @profile.id, user_id: @user.id), method: :patch, local: true, class: "row g-3" do |f| %>
+                      <div class="col-md-12">
+                        <%= f.label :bio, class: "form-label" %>
+                        <%= f.text_area :bio, rows: 5, cols: 50, value: @profile.bio, class: "form-control", required: true %>
+                      </div>
+                      <div class="col-12 text-end">
+                        <%= f.submit "Save", class: "btn btn-primary" %>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="fs-6 p-3"><%= simple_format @profile.bio %></span>
+        </div>
+
+        <div class="card border-0">
+          <div class="px-3 d-flex justify-content-between align-items-center">
+            <span class="fs-4"><%= t "user.skills.skill" %></span>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editSkillsModal">
+              <i class="fas fa-edit"></i>
+            </button>
+
+            <div class="modal fade" id="editSkillsModal" tabindex="-1" aria-labelledby="editSkillsModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editSkillsModalLabel"><%= t "user.skills.edit_skill" %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_with model: @user_profile, url: user_user_profile_path(id: @profile.id, user_id: @user.id), method: :patch, local: true, class: "row g-3" do |f| %>
+                      <div id="skills-container">
+                        <%= render "users/skills_fields", f: f %>
+                      </div>
+                      <div class="col-md-12 text-center">
+                        <%= link_to add_skill_user_user_profile_path(id: @profile.id, user_id: @user.id), 
+                          method: :post, 
+                          data: { 
+                            turbo_method: :post, 
+                            turbo_frame: "_top" 
+                          }, 
+                          class: "rounded-4 btn btn-primary" do %>
+                          <i class="fas fa-plus-circle"></i> <%= t "user.skills.add_skill" %>
+                        <% end %>
+                      </div>
+                      <div class="col-12 text-end">
+                        <%= f.submit t("user.modal.save"), class: "btn btn-primary" %>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t("user.modal.cancel") %></button>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-3">
+            <% @profile.skills&.each do |key, value| %>
+              <div class="row">
+                <span class="mb-1 fw-bold col-md-2"><%= key %></span>
+                <span class="mb-1 col-md-10"><%= value %> <%= t "user.skills.year_experience" %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="work-experience" role="tabpanel" aria-labelledby="work-experience-tab">
+        <div class="card border-0">
+          <div class="px-4 d-flex justify-content-between align-items-center">
+            <span class="fs-4"><%= t "user.project.projects" %></span>
+            <button type="button" class="btn btn-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#newProjectModal">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <div class="modal fade" id="newProjectModal" tabindex="-1" aria-labelledby="newProjectModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="newProjectModalLabel"><%= t "user.project.add_project" %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <%= render partial: "users/form_project", locals: { 
+                    user_project: @user_project, 
+                    form_url: user_user_projects_path(user_id: @user.id), 
+                    form_method: :post 
+                  } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul id="projects-list" class="list-group">
+              <%= render partial: "users/project", collection: @projects, as: :project %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="recent-jobs" role="tabpanel" aria-labelledby="recent-jobs-tab">
+        <div class="card border-0">
+        <div class="px-3 d-flex justify-content-between align-items-center">
+          <span class="fs-4">Jobs</span>
+          <%= link_to "#" do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        </div>
+          <div class="card-body">
+            <ul class="list-group">
+                Update trong các task sau khi làm đến phần apply
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

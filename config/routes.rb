@@ -3,6 +3,16 @@ Rails.application.routes.draw do
     get "switch_language/:locale", to: "application#switch_language", as: :switch_language
     resources :jobs
     resources :companies
+    resources :users do
+      resources :user_profiles do
+        member do
+          delete :remove_skill
+          post :add_skill
+        end
+      end
+      resources :user_projects
+      resources :user_social_links
+    end
     get "home/index"
     root "home#index"
     get "/login", to: "sessions#new"

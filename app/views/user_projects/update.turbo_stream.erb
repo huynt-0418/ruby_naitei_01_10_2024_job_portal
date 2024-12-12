@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "project-#{@project.id}" do %>
+  <%= render partial: "users/project", locals: { project: @project } %>
+<% end %>
