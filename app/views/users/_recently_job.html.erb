@@ -1,0 +1,22 @@
+<div class="card mb-3 shadow-sm">
+  <div class="card-body d-flex row align-items-center">
+    <div class="col-md-9">
+      <%= link_to job_path(id: application.job.id), class: "text-decoration-none" do %>
+        <h5 class="card-title"><%= application.job.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= application.job.company.name %></h6>
+      <% end %>
+    </div>
+    <p class="card-text col-md-2 d-flex align-items-center mb-0">
+      <strong><%= t "status" %>:</strong> 
+      <span class="ms-1 badge p-2
+        <%= bootstrap_status_class(application.status) %>">
+        <%= application.status.humanize %>
+      </span>
+    </p>
+    <div class="col-md-1">
+      <%= link_to "#", class: "btn btn-outline-primary" do %>
+        <i class="fa-solid fa-eye"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

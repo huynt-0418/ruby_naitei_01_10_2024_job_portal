@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :user_projects
       resources :user_social_links
     end
+    resources :applications, only: %i(create)
     get "home/index"
     root "home#index"
     get "/login", to: "sessions#new"

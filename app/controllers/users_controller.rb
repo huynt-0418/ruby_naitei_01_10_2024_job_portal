@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :load_user_data
+  before_action :load_user_data, :logged_in_user
 
   def show
     @user_project = UserProject.new
+    @applications = current_user.applications.recent
   end
 
   def update
