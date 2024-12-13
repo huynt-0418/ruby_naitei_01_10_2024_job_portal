@@ -1,0 +1,12 @@
+<div id="technology-<%= index %>" class="badge btn-primary">
+  <span><%= technology %></span>
+  <link_to remove_technology_user_user_project_path(id: current_user.user_project.id, user_id: current_user.id, technology_id: index),
+            method: :delete,
+            data: {
+              turbo_method: :delete,
+              turbo_frame: "_top",
+              turbo_target: "technology-#{index}"
+            } do %>
+    <i class="fas fa-times"></i>
+  <% end %>
+  </div>

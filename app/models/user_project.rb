@@ -1,13 +1,20 @@
 class UserProject < ApplicationRecord
   belongs_to :user_profile
 
-  # Validations
+  PERMITTED_PARAMS = [
+    :title,
+    :description,
+    :role,
+    :start_date,
+    :end_date,
+    {technologies_used: []}
+  ].freeze
+
   validates :title, presence: true,
 length: {maximum: Settings.user_project.title_max_length}
   validates :description,
             length: {maximum: Settings.user_project.description_max_length},
             allow_blank: true
-  validates :technologies_used, presence: true
   validates :start_date, presence: true
   validate :end_date_after_start_date
 

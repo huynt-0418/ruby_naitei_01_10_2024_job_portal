@@ -1,0 +1,3 @@
+<%= turbo_stream.append "skills-container" do %>
+  <%= render partial: "users/skill_row", locals: { index: @index, key: "", value: "" } %>
+<% end %>

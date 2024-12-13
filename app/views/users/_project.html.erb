@@ -1,0 +1,45 @@
+<li id="project-<%= project.id %>" class="list-group-item">
+  <div class="d-flex justify-content-between">
+    <h5><%= project.title %></h5>
+    <div>
+      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProjectModal-<%= project.id %>">
+        <i class="fa-solid fa-edit"></i>
+      </button>
+
+      <div class="modal fade" id="editProjectModal-<%= project.id %>" tabindex="-1" aria-labelledby="editProjectModalLabel-<%= project.id %>" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editProjectModalLabel-<%= project.id %>"><%= t "user.project.update_project" %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <%= render partial: "users/form_project", locals: { 
+              user_project: project, 
+              form_url: user_user_project_path(user_id: @user.id, id: project.id), 
+              form_method: :patch 
+            } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= link_to user_user_project_path(id: project.id, user_id: current_user.id), 
+          method: :delete, 
+          data: { 
+            turbo_method: :delete, 
+            turbo_confirm: t("user.project.confirm_delete")
+          }, 
+          class: "text-decoration-none ms-2" do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    </div>
+  </div>
+  <p class="mb-0 text-muted"><%= project.description %></p>
+  <div class="d-flex justify-content-between w-100 align-items-center">
+    <span class="mb-0"><%= t "user.project.role", role: project.role %></span>
+    <span><%= project.start_date %> - <%= project.end_date %></span>
+  </div>
+  <% project.technologies_used&.each do |technology| %>
+    <span class="badge bg-primary"><%= technology %></span>
+  <% end %>
+</li>

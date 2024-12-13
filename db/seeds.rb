@@ -43,3 +43,37 @@ end
               is_active: true,
               role: 0)
 end
+
+users = User.limit(10)
+
+users.each do |user|
+  profile = user.user_profile || user.create_user_profile!(
+    bio: Faker::Lorem.paragraph(sentence_count: 10),
+    gender: [0, 1, 2].sample,
+    current_address: Faker::Address.full_address,
+    work_experience: Faker::Lorem.paragraph(sentence_count: 2),
+    education: Faker::Educator.university,
+    skills: ["Ruby", "Rails", "JavaScript", "React", "SQL"].sample(3).map do |skill|
+      [skill, Faker::Number.between(from: 1, to: 5).to_s]
+    end.to_h,
+    expected_salary: "#{rand(50..150)}k USD"
+  )
+
+  rand(1..3).times do
+    profile.user_projects.create!(
+      title: Faker::App.name,
+      description: Faker::Lorem.paragraph(sentence_count: 2),
+      role: ["Developer", "Team Lead", "Designer"].sample,
+      start_date: Faker::Date.backward(days: 365 * 2),
+      end_date: Faker::Date.backward(days: 30),
+      technologies_used: ["Ruby", "React", "JavaScript", "PostgreSQL"].sample(4)
+    )
+  end
+
+  rand(2..3).times do
+    user.user_social_links.create!(
+      platform: rand(0..2), 
+      url: Faker::Internet.url(host: "socialmedia.com")
+    )
+  end
+end

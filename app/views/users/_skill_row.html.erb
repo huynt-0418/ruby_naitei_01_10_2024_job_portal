@@ -1,0 +1,27 @@
+<!-- _skill_row.html.erb -->
+<div id="skill-<%= index %>" class="row g-3 d-flex align-items-center mb-2">
+  <div class="col-md-8 d-flex align-items-center">
+    <%= fields_for "skills[#{index}]" do |skill_fields| %>
+      <%= skill_fields.label t("user.skills.skill"), class: "me-2" %>
+      <%= skill_fields.text_field :key, value: key, placeholder: t("user.skills.skill_name"), class: "form-control" %>
+    <% end %>
+  </div>
+  <div class="col-md-2 d-flex align-items-center">
+    <%= fields_for "skills[#{index}]" do |skill_fields| %>
+      <%= skill_fields.number_field :value, value: value, placeholder: t("user.skills.year_experience"), class: "form-control w-50 me-2" %>
+      <%= skill_fields.label t("user.skills.years") %>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <%= link_to t("user.modal.remove"),   
+        remove_skill_user_user_profile_path(id: current_user.user_profile.id, user_id: current_user.id, skill_id: index), 
+        method: :delete, 
+        class: "btn btn-danger remove-skill", 
+        data: { 
+          turbo_method: :delete, 
+          turbo_frame: "_top", 
+          turbo_target: "skill-#{index}" 
+        } 
+    %>
+  </div>
+</div>

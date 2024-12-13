@@ -11,7 +11,7 @@ company:
   truncate_description: 100
 image:
   max_size: 5
-  acceptable_types: [".jpg", ".jpeg", ".png", ".gif"]    
+  acceptable_types: ["image/jpg", "image/jpeg", "image/png", "image/gif"]    
 jobs:
   page_size: 4
   description_max_length: 100
