@@ -12,6 +12,21 @@ class ApplicationsController < ApplicationController
     create_new_application
   end
 
+  def update
+    @application = Application.find(params[:id])
+    if @application.update(status: params[:status])
+      flash[:success] = t "flash.application.update_success"
+      redirect_to application_path(id: @application.id)
+    else
+      flash[:danger] = t "flash.application.update_error"
+      render :show
+    end
+  end
+
+  def show
+    @application = Application.includes(:interview_processes).find(params[:id])
+  end
+
   private
 
   def create_application_with_existing_cv
@@ -35,7 +50,7 @@ class ApplicationsController < ApplicationController
   end
 
   def application_params
-    params.permit(:job_id, :cv_file, :use_existing_cv)
+    params.permit(:job_id, :cv_file, :use_existing_cv, :status)
   end
 
   def handle_existing_application existing_application

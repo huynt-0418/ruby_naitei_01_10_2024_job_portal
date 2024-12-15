@@ -1,0 +1,77 @@
+<div class="container my-4 rounded-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0"><%= t "user.apply.apply_for", job: @application.job.title %></h2>
+    </div>
+    <div class="card-header bg-light d-flex">
+      <div class="me-4">
+        <% if @application.job.company.logo.attached? %>
+          <%= image_tag @application.job.company.logo.variant(resize_to_limit: [100, 100]), class: "img-fluid rounded-circle" %>
+        <% else %>
+          <img src="https://via.placeholder.com/100" class="img-fluid rounded-circle" alt="Company Logo">
+        <% end %>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <%= link_to @application.job.company.name, "#", class: "fs-2 fw-bold text-decoration-none text-dark" %>
+        <%= link_to @application.job.company.website, target: "_blank" do %>
+          <%= @application.job.company.website %>
+        <% end %>
+      </div>
+    </div>
+      
+    <div class="card-body">
+      
+      <div class="mb-4 row">
+        <div class="col-md-9">
+          <p><strong><%= t "user.apply.salary" %></strong> <%= @application.job.salary_range %></p>
+          <p><strong><%= t "user.apply.location" %></strong> <%= @application.job.location %></p>
+          <p><strong><%= t "user.apply.work_type" %></strong> <%= @application.job.work_type %></p>
+          <p><strong><%= t "user.apply.description" %></strong> <%= @application.job.description %></p>
+          <span><strong><%= t "user.apply.required_skills" %></strong></span>
+          <% @application.job.required_skills.each do |key, value| %>
+            <span class="badge bg-primary"><%= key.capitalize %>: <%= value %></span>
+          <% end %>
+        </div>
+        <div class="col-md-3 text-end d-flex flex-column">
+          <span class="badge <%= bootstrap_status_class(@application.status) %> fs-4 fw-bold p-3">
+            <%= @application.status.humanize %>
+          </span>
+          <% if @application.status != "canceled" %>
+            <%= link_to t("user.apply.cancel_application"), application_path(id: @application.id, status: "canceled"),  data: { turbo_method: :patch, turbo_confirm: "Are you sure?" }, class: "btn btn-danger my-3 fs-4 fw-bold p-3 lh-1" %>
+          <% end %>
+        </div>
+      </div>
+
+      <hr>
+
+      <div>
+        <h3 class="text-secondary"><%= t "user.apply.interview_process" %></h3>
+
+        <% if @application.interview_processes.any? %>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th><%= t "user.apply.stage_number" %></th>
+                  <th><%= t "user.apply.stage_type" %></th>
+                  <th><%= t "user.apply.interview_type" %></th>
+                  <th><%= t "user.apply.status" %></th>
+                  <th><%= t "user.apply.result" %></th>
+                  <th><%= t "user.apply.scheduled_at" %></th>
+                  <th><%= t "user.apply.interviewer" %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render partial: "interview_process", collection: @application.interview_processes, as: :process %>
+              </tbody>
+            </table>        
+          </div>
+        <% else %>
+          <div class="alert alert-warning" role="alert">
+            <%= t "user.apply.no_interview_process" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
