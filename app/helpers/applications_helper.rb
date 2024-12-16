@@ -10,4 +10,13 @@ module ApplicationsHelper
     else "bg-light text-dark"
     end
   end
+
+  def bootstrap_result_class result
+    case result.to_s
+    when "pass" then "bg-success"
+    when "fail" then "bg-danger"
+    when "waiting" then "bg-warning text-dark"
+    else "bg-light text-dark"
+    end
+  end
 end

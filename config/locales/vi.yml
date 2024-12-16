@@ -94,6 +94,8 @@ vi:
     application:
       success: "Đã nộp đơn thành công"
       error: "Đã xảy ra lỗi khi nộp đơn"
+      update_success: "Cập nhật trạng thái ứng tuyển thành công"
+      update_error: "Cập nhật trạng thái ứng tuyển thất bại"
     error: "Đã xảy ra lỗi"
   ago: "trước"
   company:
@@ -160,6 +162,8 @@ vi:
       location: "Địa điểm:"
       work_type: "Loại công việc:"
       salary: "Mức lương:"
+      description: "Mô tả:"
+      required_skills: "Kỹ năng yêu cầu:"
       contact: "THÔNG TIN LIÊN HỆ CỦA BẠN:"
       name: "Họ và tên:"
       email: "Email:"
@@ -169,6 +173,16 @@ vi:
       no_cv: "Bạn chưa tải lên CV! Hãy tải lên CV để ứng tuyển công việc này"
       edit_profile_link: "Chỉnh sửa hồ sơ của bạn"
       job_link: "Xem chi tiết công việc này"
+      cancel_application: "Hủy Ứng Tuyển"
+      interview_process: "Phỏng Vấn"
+      no_interview_process: "Không có vòng phỏng vấn nào trong đợt apply này cho đến hiện tại"
+      stage_number: "Vòng Thứ"
+      stage_type: "Loại Phỏng Vấn"
+      interview_type: "Hình Thức"
+      status: "Trạng Thái"
+      result: "Kết Quả"
+      scheduled_at: "Lịch Phỏng Vấn"
+      interviewer: "Người Phỏng Vấn"
   status: "Status"
   datetime:
     distance_in_words:

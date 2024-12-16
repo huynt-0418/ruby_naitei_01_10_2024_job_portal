@@ -44,6 +44,7 @@ end
               role: 0)
 end
 
+jobs = Job.all.limit(5)
 users = User.limit(10)
 
 users.each do |user|
@@ -65,7 +66,7 @@ users.each do |user|
       description: Faker::Lorem.paragraph(sentence_count: 2),
       role: ["Developer", "Team Lead", "Designer"].sample,
       start_date: Faker::Date.backward(days: 365 * 2),
-      end_date: Faker::Date.backward(days: 30),
+      end_date: Faker::Date.forward(days: 30),
       technologies_used: ["Ruby", "React", "JavaScript", "PostgreSQL"].sample(4)
     )
   end
@@ -75,5 +76,33 @@ users.each do |user|
       platform: rand(0..2), 
       url: Faker::Internet.url(host: "socialmedia.com")
     )
+  end
+
+  jobs.each do |job|
+    application = Application.create!(
+      user_id: user.id,
+      job_id: job.id,
+      status: Application.statuses.values.sample,
+      created_at: Faker::Time.between(from: 2.months.ago, to: 1.week.ago),
+      updated_at: Time.now
+    )
+
+    rand(1..3).times do |stage_number|
+      InterviewProcess.create!(
+        application_id: application.id,
+        stage_number: stage_number + 1,
+        stage_type: InterviewProcess.stage_types.values.sample,
+        interview_time: Faker::Time.between(from: 1.week.ago, to: 1.week.from_now),
+        interview_location: ["Online", "Head Office", "Branch Office"].sample,
+        interview_type: InterviewProcess.interview_types.values.sample,
+        interviewer_name: Faker::Name.name,
+        status: InterviewProcess.statuses.values.sample,
+        feedback: Faker::Lorem.sentence(word_count: 15),
+        rating: rand(1..5),
+        result: InterviewProcess.results.values.sample,
+        created_at: Faker::Time.between(from: 2.months.ago, to: 1.week.ago),
+        updated_at: Time.now
+      )
+    end
   end
 end

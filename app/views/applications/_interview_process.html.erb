@@ -1,0 +1,19 @@
+<tr>
+  <td><%= process.stage_number %></td>
+  <td><%= process.stage_type.humanize %></td>
+  <td><%= process.interview_type.humanize %></td>
+  <td>
+    <span class="badge <%= bootstrap_status_class(process.status) %>">
+      <%= process.status.humanize %>
+    </span>
+  </td>
+  <td>
+    <span class="badge <%= bootstrap_result_class(process.result) %>">
+      <%= process.result.humanize %>
+    </span>
+  </td>
+  <td>
+    <%= process.interview_time ? process.interview_time.strftime(Settings.interview.datetime_format) : "-" %>
+  </td>
+  <td><%= process.interviewer_name.presence || "-" %></td>
+</tr>
