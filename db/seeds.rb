@@ -106,3 +106,20 @@ users.each do |user|
     end
   end
 end
+
+10.times do |n|
+  full_name = Faker::Name.name
+  email = "enterprise-#{n+1}@railstutorial.org"
+  password = "password"
+  dob = Faker::Date.birthday(min_age: 18, max_age: 65)
+  phone = Faker::PhoneNumber.cell_phone
+  User.create!(full_name: full_name,
+              email: email,
+              password: password,
+              password_confirmation: password,
+              dob: dob,
+              phone: phone,
+              is_active: true,
+              role: 1,
+              company_id: 1)
+end

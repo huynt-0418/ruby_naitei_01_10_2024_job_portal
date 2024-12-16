@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   has_many :company_reviews, dependent: :destroy
   has_many :company_followers, dependent: :destroy
   has_many :followers, through: :company_followers, source: :user
+  has_many :users, dependent: :nullify
 
   # Validations
   validates :name, presence: true,

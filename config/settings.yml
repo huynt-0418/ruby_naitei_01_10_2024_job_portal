@@ -19,3 +19,9 @@ jobs:
   related_jobs_size: 5
 interview:
   datetime_format: "%B %d, %Y %H:%M"
+enterprise_scout:
+  page_size: 12
+roles:
+  user: 0
+  enterprise: 1
+  admin: 2

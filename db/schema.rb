@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_22_163825) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_15_200244) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -180,6 +180,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_22_163825) do
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role"], name: "index_users_on_role"
   end
@@ -198,4 +200,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_22_163825) do
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_projects", "user_profiles"
   add_foreign_key "user_social_links", "users"
+  add_foreign_key "users", "companies"
 end
