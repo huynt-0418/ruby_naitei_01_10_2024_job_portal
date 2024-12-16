@@ -88,6 +88,12 @@ vi:
       failed: "Cập nhật dự án thất bại"
     delete_project:
       success: "Xóa dự án thành công"
+    project_not_found: "Không tìm thấy dự án"
+    already_applied: "Bạn đã ứng tuyển cho công việc này rồi"
+    reapply_success: "Bạn đã ứng tuyển lại công việc này thành công"
+    application:
+      success: "Đã nộp đơn thành công"
+      error: "Đã xảy ra lỗi khi nộp đơn"
     error: "Đã xảy ra lỗi"
   ago: "trước"
   company:
@@ -143,6 +149,27 @@ vi:
       save: "Lưu"
       cancel: "Hủy"
       remove: "Xóa"
+      next: "Tiếp theo"
+      submit: "Nộp đơn"
+    apply:
+      apply_for: "Ứng tuyển cho %{job}"
+      confirm_info: "XÁC NHẬN THÔNG TIN"
+      job_confirm: "Bạn đang ứng tuyển cho công việc sau:"
+      job_title: "Tên công việc:"
+      company: "Công ty:"
+      location: "Địa điểm:"
+      work_type: "Loại công việc:"
+      salary: "Mức lương:"
+      contact: "THÔNG TIN LIÊN HỆ CỦA BẠN:"
+      name: "Họ và tên:"
+      email: "Email:"
+      phone: "Số điện thoại:"
+      upload_cv: "Tải lên CV"
+      use_current_cv: "Sử dụng CV hiện tại"
+      no_cv: "Bạn chưa tải lên CV! Hãy tải lên CV để ứng tuyển công việc này"
+      edit_profile_link: "Chỉnh sửa hồ sơ của bạn"
+      job_link: "Xem chi tiết công việc này"
+  status: "Status"
   datetime:
     distance_in_words:
       less_than_x_seconds:

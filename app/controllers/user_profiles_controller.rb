@@ -1,4 +1,5 @@
 class UserProfilesController < ApplicationController
+  before_action :logged_in_user
   def update
     @user_profile = current_user.user_profile
 

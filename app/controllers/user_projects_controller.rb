@@ -1,6 +1,6 @@
 class UserProjectsController < ApplicationController
   before_action :load_project, only: [:update, :destroy]
-  before_action :load_user_data
+  before_action :load_user_data, :logged_in_user
 
   def create
     @user_project = current_user.user_projects.build(project_params)

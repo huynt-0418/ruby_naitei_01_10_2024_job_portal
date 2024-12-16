@@ -2,4 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/menu"
+import "custom/step_modal"
 import "bootstrap"

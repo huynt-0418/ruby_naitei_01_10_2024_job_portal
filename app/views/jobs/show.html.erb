@@ -25,7 +25,15 @@
           </div>
         </div>
         <div class="text-center mt-4">
-          <%= link_to t("jobs.apply_this_position"), "#", class: "btn btn-primary btn-md col-sm-12 py-2 fs-5" %>
+          <% if current_user %>
+            <button type="button" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#applyJobModal-<%= @job.id %>">
+              <%= t "jobs.apply_now" %>
+            </button>
+            <%= render partial: "apply_modal", locals: {job: @job} %>
+          <% else %>
+            <% store_location %>
+            <%= link_to t("jobs.apply_now"), login_path, class: "w-100 btn btn-primary btn-lg" %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -73,7 +81,15 @@
       </div>
 
       <div class="text-center mt-4">
-        <%= link_to t("jobs.apply_this_position"), "#", class: "btn btn-primary btn-lg" %>
+        <% if current_user %>
+          <button type="button" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#applyJobModal-<%= @job.id %>">
+            <%= t "jobs.apply_now" %>
+          </button>
+          <%= render partial: "apply_modal", locals: {job: @job} %>
+        <% else %>
+          <% store_location %>
+          <%= link_to t("jobs.apply_now"), login_path, class: "w-100 btn btn-primary btn-lg" %>
+        <% end %>
       </div>
     </div>
 
