@@ -10,7 +10,7 @@
   </div>
 
   <nav class="header-nav">
-    <a href="#"><%= t "header.for_employers" %></a>
+    <%= link_to t("header.for_employers"), enterprise_login_path %>
     <% if logged_in? %>
       <div class="dropdown header-username" id="header-dropdown">
         <div class="dropdown-toggle" data-toggle="dropdown">

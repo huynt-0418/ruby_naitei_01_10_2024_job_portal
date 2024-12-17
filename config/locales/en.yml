@@ -183,4 +183,22 @@ en:
       result: "Result"
       scheduled_at: "Scheduled At"
       interviewer: "Interviewer"
+  enterprise:
+    scout:
+      title: "Scout"
+      search_placeholder: "Search candidates"
+      search: "Search"
+      sort_by: "Sort by:"
+      select_sorter: "Select sorter"
+      name_asc: "Name (A-Z)"
+      name_desc: "Name (Z-A)"
+      age_asc: "Age (Low-High)"
+      age_desc: "Age (High-Low)"
+    recruitment:
+      title: "Recruitments"
+    profile:
+      title: "Enterprise"
+    login:
+      title: "Login as an enterprise"
+      subtitle: "Find the best candidates for your company"
   status: "Status"

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :user_social_links, dependent: :destroy
   accepts_nested_attributes_for :user_social_links, allow_destroy: true
   delegate :user_projects, to: :user_profile
+  belongs_to :company, optional: true
 
   enum role: {user: 0, business: 1, admin: 2}
 
@@ -36,6 +37,29 @@ length: {maximum: Settings.user.fullname.max_length}
   validates :phone, presence: true, allow_blank: true
   validates :role, presence: true
   validate :avatar_format
+
+  scope :search, lambda {|search|
+    return if search.blank?
+
+    where("full_name LIKE ?", "%#{search}%")
+  }
+
+  scope :with_role, ->(role){where(role:)}
+
+  scope :sort_by_param, lambda {|sort_by|
+    case sort_by
+    when "name"
+      order(:full_name)
+    when "name_desc"
+      order(full_name: :desc)
+    when "age"
+      order(Arel.sql("TIMESTAMPDIFF(YEAR, dob, CURDATE()) ASC"))
+    when "age_desc"
+      order(Arel.sql("TIMESTAMPDIFF(YEAR, dob, CURDATE()) DESC"))
+    else
+      order(created_at: :desc)
+    end
+  }
 
   private
 

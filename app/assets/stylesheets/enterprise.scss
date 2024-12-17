@@ -1,0 +1,23 @@
+@import "variables";
+
+.logo-size {
+  width: 60px;
+  height: 60px;
+}
+
+.enterprise-sidebar {
+  background-color: $backgroundSidebar;
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.avatar-size {
+  margin: 0 auto 0.5rem auto;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.sidebar-text {
+  color: $textDarkBlue !important;
+}
