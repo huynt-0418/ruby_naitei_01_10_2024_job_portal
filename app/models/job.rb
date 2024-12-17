@@ -1,4 +1,16 @@
 class Job < ApplicationRecord
+  PERMITTED_PARAMS = [
+    :title,
+    :description,
+    :experience_level,
+    :work_type,
+    :salary_range,
+    :location,
+    :status,
+    {required_skills: [:key, :value]}
+  ].freeze
+
+  acts_as_paranoid
   belongs_to :company
   has_many :applications, dependent: :destroy
   has_many :applicants, through: :applications, source: :user

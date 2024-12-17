@@ -1,0 +1,26 @@
+<% provide(:title, "Recruiments") %>
+<div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><%= t "enterprise.recruitment.job_title" %></h2>
+    <%= link_to new_enterprise_job_path, class: "btn btn-primary" do %>
+      <i class="fa-solid fa-plus-circle"></i>
+      <span class="ms-1"><%= t "enterprise.recruitment.add_job" %></span>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th><%= t "enterprise.recruitment.title" %></th>
+        <th><%= t "enterprise.recruitment.location" %></th>
+        <th><%= t "enterprise.recruitment.status" %></th>
+        <th><%= t "enterprise.recruitment.salary" %></th>
+        <th><%= t "enterprise.recruitment.action" %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @jobs %>
+    </tbody>
+  </table>
+</div>

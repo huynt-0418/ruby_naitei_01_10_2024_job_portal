@@ -1,5 +1,6 @@
 document.addEventListener("turbo:load", function() {
   let dropdown = document.querySelector("#header-dropdown");
+  if (!dropdown) return;
   dropdown.addEventListener("mouseover", function(event) {
     event.preventDefault();
     let menu = document.querySelector("#dropdown-menu");
