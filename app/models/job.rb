@@ -55,4 +55,7 @@ class Job < ApplicationRecord
          .where(company_id: job.company_id)
          .limit(Settings.jobs.related_jobs_size)
   }
+
+  scope :pending, ->{where(status: :pending)}
+  scope :active, ->{where(status: :active)}
 end

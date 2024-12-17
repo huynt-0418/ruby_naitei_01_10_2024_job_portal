@@ -1,0 +1,23 @@
+<div class="carousel-item <%= "active" if index == 0 %>">
+  <div class="card mx-auto shadow-sm" style="width: 28rem;">
+    <div class="card-body">
+      <h5 class="card-title fw-bold"><%= job.title %></h5>
+      <p class="card-text"><strong><%= t "user.apply.description" %></strong> <%= job.description %></p>
+      <p><strong><%= t "user.apply.location" %></strong> <%= job.location %></p>
+      <p><strong><%= t "user.apply.work_type" %></strong> <%= job.work_type %></p>
+      <p><strong><%= t "user.apply.salary" %></strong> <%= job.salary_range %></p>
+      <p><strong><%= t "user.apply.experience" %></strong> <%= job.experience_level %></p>
+      <p><strong><%= t "user.apply.required_skills" %></strong>
+        <% job.required_skills.each do |key, value| %>
+          <span class="badge bg-primary"><%= key.capitalize %>: <%= value %></span>
+        <% end %>
+      </p>
+      <div class="d-flex justify-content-between">
+        <%= link_to t("admin.dashboard.reject"), admin_job_path(id: job.id, status: "closed"), 
+                    data: { turbo_method: :patch }, class: "btn btn-danger btn-sm" %>
+        <%= link_to t("admin.dashboard.approve"), admin_job_path(id: job.id, status: "active"), 
+                    data: { turbo_method: :patch }, class: "btn btn-success btn-sm" %>
+      </div>
+    </div>
+  </div>
+</div>

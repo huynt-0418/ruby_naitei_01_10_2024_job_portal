@@ -1,0 +1,22 @@
+<% provide :title, t("login.login") %>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow p-4" style="width: 25rem;">
+    <div class="text-center mb-4">
+      <h4 class="fw-bold"><%= t "admin.login.admin_login " %></h4>
+    </div>
+    <%= form_with url: admin_login_path, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, t("login.email"), class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", placeholder: t("login.email") %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :password, t("login.password"), class: "form-label" %>
+        <%= f.password_field :password, class: "form-control", placeholder: t("login.password") %>
+      </div>
+      <div class="d-grid">
+        <%= f.submit t("login.login"), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

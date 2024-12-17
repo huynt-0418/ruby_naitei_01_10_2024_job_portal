@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="d-flex" id="admin-layout">
+      <div class="bg-dark text-white vh-100 d-flex flex-column" style="width: 250px;">
+        <div class="p-3 text-center">
+          <h4><%= t("admin.sidebar.admin_panel") %></h4>
+        </div>
+        <ul class="nav flex-column pt-3 pb-4 px-3 flex-grow-1">
+          <li class="nav-item">
+            <%= link_to "Dashboard", admin_root_path, class: "nav-link text-dark bg-light text" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t("admin.sidebar.job"), "#", class: "nav-link text-white" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t("admin.sidebar.user"), "#", class: "nav-link text-white" %>
+          </li>
+          <li class="nav-item">
+            <div class="switch-language nav-item mb-2 px-3 py-1">
+              <%= link_to "EN", switch_language_path(locale: "en") %>
+              <div class="separator">|</div>
+              <%= link_to "VI", switch_language_path(locale: "vi") %>
+            </div>
+          </li>
+          <li class="nav-item mt-auto">
+            <%= link_to admin_logout_path, method: :delete, class: "nav-link text-white" do %>
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <%= t("admin.sidebar.logout") %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-grow-1 bg-light">
+        <nav class="navbar navbar-light bg-white shadow-sm px-4">
+          <span class="navbar-brand mb-0 h1">Welcome <%= yield(:admin) %></span>
+        </nav>
+
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+
+        <div class="container-fluid p-4">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -168,7 +168,7 @@ en:
       location: "Location:"
       experience: "Experience Level:"
       work_type: "Work Type:"
-      salary: "Salary:"
+      salary: "Salary Range:"
       description: "Description:"
       required_skills: "Required Skills:"
       contact: "Your Contact Information:"
@@ -229,4 +229,18 @@ en:
     login:
       title: "Login as an enterprise"
       subtitle: "Find the best candidates for your company"
+  admin:
+    sidebar:
+      job: "Manage Jobs"
+      user: "Manage Users"
+      admin_panel: "Admin Panel"
+      logout: "Logout"
+    dashboard:
+      admin_dashboard: "Admin Dashboard"
+      pending_jobs: "Pending Jobs"
+      reject: "Reject"
+      approve: "Approve"
+      no_pending_jobs: "No pending jobs at the moment"
+    login:
+      admin_login: "Admin Login"
   status: "Status"

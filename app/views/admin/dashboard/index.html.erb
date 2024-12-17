@@ -1,0 +1,29 @@
+<% provide(:title, t("admin.dashboard.admin_dashboard")) %>
+<% provide(:admin, current_user.full_name) %>
+<div class="container row">
+  <div class="col-md-6">
+    <h3 class="mb-4"><%= t "admin.dashboard.pending_jobs" %> <% if @jobs.any? %> (<%= @jobs.count %>) <% end %></h3>
+
+    <% if @jobs.any? %>
+      <div class="row">
+        <div id="jobCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% @jobs.each_with_index do |job, index| %>
+            <%= render "admin/dashboard/job_card", job: job, index: index %>
+          <% end %>
+        </div>
+      
+        <button class="carousel-control-prev" type="button" data-bs-target="#jobCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#jobCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <% else %>
+      <p><%= t "admin.dashboard.no_pending_jobs" %></p>
+    <% end %>
+  </div>
+</div>
