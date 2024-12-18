@@ -229,6 +229,20 @@ vi:
     login:
       title: "Đăng nhập với tư cách là doanh nghiệp"
       subtitle: "Tìm ứng viên phù hợp nhất với công ty bạn"
+  admin:
+    sidebar:
+      job: "Quản lý jobs"
+      user: "Quản lý users"
+      admin_panel: "Admin Panel"
+      logout: "Đăng xuất"
+    dashboard:
+      admin_dashboard: "Admin Dashboard"
+      pending_jobs: "Công việc đang chờ duyệt"
+      reject: "Từ chối"
+      approve: "Duyệt"
+      no_pending_jobs: "Không có công việc nào đang chờ duyệt"
+    login:
+      admin_login: "Admin Login"
   status: "Status"
   datetime:
     distance_in_words:

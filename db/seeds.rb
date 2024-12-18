@@ -123,3 +123,12 @@ end
               role: 1,
               company_id: 1)
 end
+
+User.create!(full_name: "Admin",
+            email: "admin@admin.com",
+            password: "password",
+            password_confirmation: "password",
+            dob: Faker::Date.birthday(min_age: 18, max_age: 65),
+            phone: Faker::PhoneNumber.cell_phone,
+            is_active: true,
+            role: 2)

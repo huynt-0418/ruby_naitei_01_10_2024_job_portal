@@ -27,5 +27,13 @@ Rails.application.routes.draw do
       root "dashboard#index"
       resources :jobs
     end
+
+    namespace :admin do
+      get "/login", to: "sessions#new"
+      post "/login", to: "sessions#create"
+      get "/logout", to: "sessions#destroy"
+      root "dashboard#index"
+      resources :jobs, only: %i(update)
+    end
   end
 end
