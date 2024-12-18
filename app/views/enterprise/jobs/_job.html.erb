@@ -1,0 +1,24 @@
+<tr>
+  <td><%= job.title %></td>
+  <td><%= job.location %></td>
+  <td><%= job.status.humanize %></td>
+  <td><%= job.salary_range %></td>
+  <td>
+    <%= link_to enterprise_job_path(id: job.id), class: "btn btn-info btn-sm" do %>
+      <i class="fa-solid fa-eye"></i>
+    <% end %>
+    <%= link_to edit_enterprise_job_path(id: job.id), class: "btn btn-warning btn-sm" do %>
+      <i class="fa-solid fa-edit"></i>
+    <% end %>
+    <% unless job.deleted_at %>
+      <%= link_to enterprise_job_path(id: job.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
+    <% end %>
+  </td>
+  <td>
+    <% if job.deleted_at %>
+      <span class="badge bg-danger"><%= t "enterprise.recruitment.deleted" %></span>
+    <% end %>
+  </td>
+</tr>

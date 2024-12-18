@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <div class="d-flex align-items-center">
+    <%= link_to enterprise_jobs_path, class: "btn btn-secondary" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span><%= t "enterprise.modal.back" %></span>
+    <% end %>
+    <span class="ms-3 fs-2 fw-bold"><%= t "enterprise.recruitment.edit_job" %></span>
+  </div>
+  <%= render partial: "form", locals: {method: :patch, form_url: enterprise_job_path(id: @job.id)} %>
+</div>

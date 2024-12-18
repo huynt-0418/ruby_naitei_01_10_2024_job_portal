@@ -13,7 +13,7 @@
     <div class="d-flex">
       <div class="text-dark vh-100 enterprise-sidebar">
         <div>
-          <div class="d-flex mt-4 px-2">
+          <div class="d-flex mt-4 px-5">
             <%= image_tag "logo.png", class: "img-fluid logo-size" %>
             <div class="fw-bold fs-4 d-flex align-items-center">DeCaPa</div>
           </div>
@@ -28,10 +28,10 @@
           </div>
           <ul class="nav flex-column">
             <li class="nav-item mb-2">
-              <%= link_to t("enterprise.scout.title"), enterprise_root_path, class: "nav-link active text-light bg-primary px-5" %>
+              <%= link_to t("enterprise.scout.title"), enterprise_root_path, class: "nav-link  px-5 sidebar-text #{active_link_to(enterprise_root_path)}" %>
             </li>
             <li class="nav-item mb-2">
-              <%= link_to t("enterprise.recruitment.title"), "#", class: "nav-link px-5 sidebar-text" %>
+              <%= link_to t("enterprise.recruitment.recruitments"), enterprise_jobs_path, class: "nav-link px-5 sidebar-text #{active_link_to(enterprise_jobs_path)}" %>
             </li>
             <li class="nav-item mb-2">
               <%= link_to t("enterprise.profile.title"), "#", class: "nav-link px-5 sidebar-text" %>
@@ -52,6 +52,9 @@
       </div>
 
       <div class="flex-grow-1 p-4 bg-light">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
         <%= yield %>
       </div>
     </div>
