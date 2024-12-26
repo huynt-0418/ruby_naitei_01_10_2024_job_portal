@@ -1,0 +1,16 @@
+<% provide :title, t("enterprise.applications.new_apply") %>
+<h1 class="text-center my-4"><%= t "enterprise.applications.newest_apply" %></h1>
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <p class="h4 fw-bold"><%= t "enterprise.applications.list_apply" %></p>
+    <%= link_to "Reset", enterprise_applications_path, class: "btn btn-outline-danger" %>
+  </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <%= render partial: "apply", collection: @applications, as: :apply %>
+  </div>
+</div>
+
+<div class="mt-4 float-end">
+  <%== pagy_bootstrap_nav @pagy %>
+</div>

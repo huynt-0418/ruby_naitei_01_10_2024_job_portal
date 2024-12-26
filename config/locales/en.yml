@@ -229,6 +229,15 @@ en:
     login:
       title: "Login as an enterprise"
       subtitle: "Find the best candidates for your company"
+    applications:
+      not_found: "Application not found"
+      title: "Applications"
+      new_apply: "New Apply"
+      newest_apply: "Newest Applies"
+      list_apply: "Apply List"
+      apply_position: "Apply for position:"
+      apply_time: "Apply time:"
+      reset: "Reset"
   admin:
     sidebar:
       job: "Manage Jobs"
