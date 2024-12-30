@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       get "/logout", to: "sessions#destroy"
       root "dashboard#index"
       resources :jobs
+      resources :applications
     end
 
     namespace :admin do

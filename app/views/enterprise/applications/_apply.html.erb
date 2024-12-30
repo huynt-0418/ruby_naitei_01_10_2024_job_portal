@@ -1,0 +1,15 @@
+<div class="col">
+  <div class="card shadow-sm h-100">
+    <div class="card-body">
+      <%= link_to enterprise_application_path(id: apply.id), class: "text-decoration-none text-dark" do %>
+        <h5 class="card-title"><%= apply.user.full_name %></h5>
+      <% end %>
+      <p class="card-text">
+        <strong><%= t "enterprise.applications.apply_position" %></strong> <%= link_to apply.job.title, job_path(id: apply.job.id), class: "text-decoration-none" %>
+      </p>
+      <p class="card-text">
+        <strong><%= t "enterprise.applications.apply_time" %></strong> <%= apply.created_at %>
+      </p>
+    </div>
+  </div>
+</div>
