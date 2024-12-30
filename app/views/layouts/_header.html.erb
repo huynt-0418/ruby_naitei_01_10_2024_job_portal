@@ -10,7 +10,9 @@
   </div>
 
   <nav class="header-nav">
-    <%= link_to t("header.for_employers"), enterprise_login_path %>
+    <% unless logged_in? %>
+      <%= link_to t("header.for_employers"), enterprise_login_path %>
+    <% end %>
     <% if logged_in? %>
       <div class="dropdown header-username" id="header-dropdown">
         <div class="dropdown-toggle" data-toggle="dropdown">

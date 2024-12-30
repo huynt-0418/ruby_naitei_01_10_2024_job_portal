@@ -1,0 +1,9 @@
+<div class="job-card col-3">
+  <h3><%= job.title %></h3>
+  <div class="d-flex justify-content-between">
+    <p><%= job.work_type %></p>
+    <p><%= job.location %></p>
+  </div>
+  <span class="fw-bold"><%= t("jobs.salary") %>: <%= job.salary_range %></span>
+  <%= link_to t("home.jobs.apply_now"), "#", class: "btn btn-primary float-end mt-3" %>
+</div>
