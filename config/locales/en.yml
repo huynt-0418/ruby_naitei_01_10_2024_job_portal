@@ -102,6 +102,11 @@ en:
       update_success: "Update job successfully"
       update_error: "Update job failed"
       delete_success: "Delete job successfully"
+    interview:
+      update_success: "Update interview successfully"
+      update_error: "Update interview failed"
+      create_success: "Create interview successfully"
+      create_error: "Create interview failed"
     error: "Something went wrong"
   ago: "ago"
   company:
@@ -238,6 +243,13 @@ en:
       apply_position: "Apply for position:"
       apply_time: "Apply time:"
       reset: "Reset"
+      update_status: "Update Status"
+      applicant_info: "Applicant Information"
+      job_info: "Job Information"
+      add_interview: "Add Interview"
+      interview_process: "Interview Process"
+      no_interview: "No interview processes available for this application."
+      application_detail: "Application Detail"
   admin:
     sidebar:
       job: "Manage Jobs"

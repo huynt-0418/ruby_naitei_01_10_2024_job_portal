@@ -26,7 +26,12 @@ Rails.application.routes.draw do
       get "/logout", to: "sessions#destroy"
       root "dashboard#index"
       resources :jobs
-      resources :applications
+      resources :applications do
+        member do
+          patch :update_status
+        end
+        resources :interview_processes, only: %i(create update destroy)
+      end
     end
 
     namespace :admin do
