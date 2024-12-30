@@ -7,6 +7,12 @@
       </div>
       <div class="mb-3">
         <%= form_with url: jobs_path, method: :get, local: true do |f| %>
+          <div class="search-bar my-4">
+            <div class="text_field_wrap d-flex border border-secondary-subtle rounded-3 px-2 align-items-center">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <%= f.text_field :keyword, placeholder: t("home.hero.search_placeholder"), value: params[:keyword], class: "form-control w-100 me-2 border-0 outline-none" %>
+            </div>
+          </div>
           <p class="h5 fw-bold"><%= t "jobs.job_type" %></p>
           <% work_types.each do |type| %>
             <div class="d-flex justify-content-between align-items-center mt-2">
@@ -21,9 +27,6 @@
               <p class="mb-0 h5"><%= t location[:key] %></p>
               <%= check_box_tag "location[]", location[:value], params[:location]&.include?(location[:value]) %>
             </div>
-          <% end %>
-          <% if params[:keyword].present? %>
-            <%= f.hidden_field :keyword, value: params[:keyword] %>
           <% end %>
           <%= f.submit t("jobs.apply"), class: "btn btn-primary mt-3 float-end" %>
         <% end %>               

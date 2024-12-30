@@ -10,37 +10,14 @@
 </div>
 
 <div class="latest-featured-jobs row">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center">
     <h2 class="h1"><%= t "home.jobs.title" %></h2>
-    <a href="/locations" class="text-primary text-decoration-none d-flex align-items-center">
+    <a href="/jobs" class="text-primary text-decoration-none d-flex align-items-center">
       <%= t "home.jobs.view_all" %>
       <i class="bi bi-arrow-right ms-2"></i>
     </a>
   </div>
-  <div class="job-card col-3">
-    <h3>Customer Service</h3>
-    <p>Sales, Service, & Support</p>
-    <p>Full-Time, New Zealand</p>
-    <%= link_to t("home.jobs.apply_now"), "#", class: "btn-apply" %>
-  </div>
-  <div class="job-card col-3">
-    <h3>Full-Stack Developer</h3>
-    <p>Engineering & Tech</p>
-    <p>Full-Time, Philippines</p>
-    <%= link_to t("home.jobs.apply_now"), "#", class: "btn-apply" %>
-  </div>
-  <div class="job-card col-3">
-    <h3>Customer Service</h3>
-    <p>Sales, Service, & Support</p>
-    <p>Full-Time, New Zealand</p>
-    <%= link_to t("home.jobs.apply_now"), "#", class: "btn-apply" %>
-  </div>
-  <div class="job-card col-3">
-    <h3>Full-Stack Developer</h3>
-    <p>Engineering & Tech</p>
-    <p>Full-Time, Philippines</p>
-    <%= link_to t("home.jobs.apply_now"), "#", class: "btn-apply" %>
-  </div>
+  <%= render partial: "home/latest_jobs", collection: @latest_jobs, as: :job %>
 </div>
 
 <div class="mb-5">
