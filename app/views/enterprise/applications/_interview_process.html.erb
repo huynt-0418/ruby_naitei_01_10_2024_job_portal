@@ -1,0 +1,88 @@
+<tr>
+  <td><%= process.stage_number %></td>
+  <td><%= process.stage_type.humanize %></td>
+  <td><%= process.interview_type.humanize %></td>
+  <td>
+    <span class="badge <%= bootstrap_status_class_for_interview_process process.status %>">
+      <%= process.status.humanize %>
+    </span>
+  </td>
+  <td>
+    <span class="badge <%= bootstrap_result_class process.result %>">
+      <% if process.result.present? %>
+        <%= process.result.humanize %>
+      <% else %>
+        N/A
+      <% end %>
+    </span>
+  </td>
+  <td><%= process.interview_time&.strftime(Settings.interview.datetime_format) %></td>
+  <td><%= process.interviewer_name %></td>
+  <td>
+    <button type="button" class="btn btn-warning btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editInterviewModal-<%= process.id %>"
+            data-interview-id="<%= process.id %>"
+            data-action="load-interview-data">
+      <i class="fas fa-edit"></i>
+    </button>
+    <button type="button" class="btn btn-info btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#showInterviewModal-<%= process.id %>">
+      <i class="fas fa-eye"></i>
+    </button>
+    <%= link_to enterprise_application_interview_process_path(application_id: process.application_id, id: process.id), 
+                data: { 
+                  turbo_confirm: t("flash.interview.delete_confirm"),
+                  turbo_method: :delete
+                }, 
+                class: "btn btn-danger btn-sm" do %>
+      <i class="fas fa-trash"></i>
+    <% end %>
+  </td>
+</tr>
+
+<div class="modal fade" id="editInterviewModal-<%= process.id %>" tabindex="-1" aria-labelledby="editInterviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editInterviewModalLabel"><%= t "enterprise.applications.edit_interview" %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "enterprise/applications/interview_form", interview_process: process, form_url: enterprise_application_interview_process_path(application_id: process.application_id, id: process.id), form_method: :patch %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showInterviewModal-<%= process.id %>" tabindex="-1" aria-labelledby="showInterviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showInterviewModalLabel"><%= t "enterprise.applications.show_interview" %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li><strong><%= t "user.apply.stage_number" %>:</strong> <%= process.stage_number %></li>
+          <li><strong><%= t "user.apply.stage_type" %>:</strong> <%= process.stage_type.humanize %></li>
+          <li><strong><%= t "user.apply.interview_type" %>:</strong> <%= process.interview_type.humanize %></li>
+          <li><strong><%= t "user.apply.status" %>:</strong> <%= process.status.humanize %></li>
+          <li><strong><%= t "user.apply.result" %>:</strong>
+            <% if process.result.present? %>
+              <%= process.result.humanize %>
+            <% else %>
+              N/A
+            <% end %>
+          </li>
+          <li><strong><%= t "user.apply.scheduled_at" %>:</strong> <%= process.interview_time&.strftime(Settings.interview.datetime_format) %></li>
+          <li><strong><%= t "user.apply.interviewer" %>:</strong> <%= process.interviewer_name %></li>
+          <li><strong><%= t "user.apply.location" %></strong> <%= process.interview_location %></li>
+          <li><strong><%= t "user.apply.rating" %>:</strong> <%= process.rating %></li>
+          <li><strong><%= t "user.apply.feedback" %>:</strong> <%= process.feedback %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

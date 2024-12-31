@@ -7,6 +7,7 @@ gem "bootsnap", require: false
 gem "bootstrap", "~> 5.1.3"
 gem "config"
 gem "dotenv-rails"
+gem "flatpickr"
 gem "font-awesome-sass", "~> 6.5.2"
 gem "importmap-rails"
 gem "jbuilder"

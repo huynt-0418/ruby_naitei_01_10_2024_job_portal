@@ -1,2 +1,84 @@
 <% provide :title, t("enterprise.applications.title") %>
-<div> <%= @application.user.full_name %> </div>
+<div class="container my-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0"><%= t "enterprise.applications.application_detail" %></h2>
+      <div>
+        <%= form_tag update_status_enterprise_application_path(id: @application.id), method: :patch, class: "d-inline" do %>
+          <%= select_tag :status, 
+              options_for_select(application_status_options, @application.status),
+              class: "form-select d-inline w-auto" %>
+          <%= submit_tag t("enterprise.applications.update_status"), class: "btn btn-light ms-2" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4><%= t "enterprise.applications.applicant_info" %></h4>
+          <p><strong><%= t "user.profile.full_name" %>:</strong> <%= @application.user.full_name %></p>
+          <p><strong><%= t "user.profile.email" %>:</strong> <%= @application.user.email %></p>
+          <p><strong><%= t "user.profile.phone" %>:</strong> <%= @application.user.phone %></p>
+          <% if @application.cv_file.attached? %>
+            <%= link_to t("user.profile.download_cv"), rails_blob_path(@application.cv_file, disposition: "attachment"), class: "btn btn-primary" %>
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <h4><%= t "enterprise.applications.job_info" %></h4>
+          <p><strong><%= t "jobs.title" %>:</strong> <%= @application.job.title %></p>
+          <p><strong><%= t "jobs.salary" %>:</strong> <%= @application.job.salary_range %></p>
+          <p><strong><%= t "jobs.location" %>:</strong> <%= @application.job.location %></p>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4><%= t "enterprise.applications.interview_process" %></h4>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newInterviewModal">
+            <%= t "enterprise.applications.add_interview" %>
+          </button>
+        </div>
+
+        <% if @application.interview_processes.any? %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%= t "user.apply.stage_number" %></th>
+                  <th><%= t "user.apply.stage_type" %></th>
+                  <th><%= t "user.apply.interview_type" %></th>
+                  <th><%= t "user.apply.status" %></th>
+                  <th><%= t "user.apply.result" %></th>
+                  <th><%= t "user.apply.scheduled_at" %></th>
+                  <th><%= t "user.apply.interviewer" %></th>
+                  <th><%= t "enterprise.applications.actions" %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render partial: "interview_process", collection: @application.interview_processes.order(:stage_number), as: :process %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <div class="alert alert-info">
+            <%= t "enterprise.applications.no_interview" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="newInterviewModal" tabindex="-1" aria-labelledby="newInterviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newInterviewModalLabel"><%= t "enterprise.applications.add_interview" %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "enterprise/applications/interview_form", interview_process: @interview_process, form_url: enterprise_application_interview_processes_path(application_id: @application.id), form_method: :post %>
+      </div>
+    </div>
+  </div>
+</div>

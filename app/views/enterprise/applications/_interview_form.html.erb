@@ -1,0 +1,50 @@
+<%= form_with model: interview_process, url: form_url, method: form_method, data: { turbo: false }, local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :stage_number, t("user.apply.stage_number"), class: "form-label" %>
+    <%= f.number_field :stage_number, class: "form-control", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :stage_type, t("user.apply.stage_type"), class: "form-label" %>
+    <%= f.select :stage_type, stage_type_options, {}, class: "form-select", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :interview_type, t("user.apply.interview_type"), class: "form-label" %>
+    <%= f.select :interview_type, interview_type_options, {}, class: "form-select", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :interview_time, t("user.apply.scheduled_at"), class: "form-label" %>
+    <%= f.text_field :interview_time, class: "form-control flatpickr", required: true, data: { controller: "flatpickr" } %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :interviewer_name, t("user.apply.interviewer"), class: "form-label" %>
+    <%= f.text_field :interviewer_name, class: "form-control", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :interview_location, t("user.apply.location"), class: "form-label" %>
+    <%= f.text_field :interview_location, class: "form-control" %>
+  </div>
+  <% if form_method == :patch %>
+    <div class="mb-3">
+      <%= f.label :status, t("user.apply.status"), class: "form-label" %>
+      <%= f.select :status, interview_process_status_options, {}, class: "form-select" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :rating, t("user.apply.rating"), class: "form-label" %>
+      <%= f.number_field :rating, class: "form-control", min: 1, max: 5 %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :feedback, t("user.apply.feedback"), class: "form-label" %>
+      <%= f.text_area :feedback, class: "form-control", rows: 3 %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :result, t("user.apply.result"), class: "form-label" %>
+      <%= f.select :result, interview_process_result_options, {}, class: "form-select" %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :status, value: "scheduled" %>
+  <% end %>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t "user.modal.cancel" %></button>
+    <%= f.submit t("user.modal.save"), class: "btn btn-primary" %>
+  </div>
+<% end %>

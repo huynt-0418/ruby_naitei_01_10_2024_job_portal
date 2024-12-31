@@ -102,6 +102,11 @@ vi:
       update_success: "Cập nhật công việc thành công"
       update_error: "Cập nhật công việc thất bại"
       delete_success: "Xóa công việc thành công"
+    interview:
+      update_success: "Cập nhật vòng phỏng vấn thành công"
+      update_error: "Cập nhật vòng phỏng vấn thất bại"
+      create_success: "Tạo vòng phỏng vấn thành công"
+      create_error: "Tạo vòng phỏng vấn thất bại"
     error: "Đã xảy ra lỗi"
   ago: "trước"
   company:
@@ -238,6 +243,13 @@ vi:
       apply_position: "Ứng tuyển cho vị trí:"
       apply_time: "Thời gian ứng tuyển:"
       reset: "Đặt lại"
+      update_status: "Cập nhật trạng thái"
+      applicant_info: "Thông tin ứng viên"
+      job_info: "Thông tin công việc"
+      add_interview: "Thêm vòng phỏng vấn"
+      interview_process: "Vòng phỏng vấn"
+      no_interview: "Không có vòng phỏng vấn nào cho ứng viên này"
+      application_detail: "Chi tiết ứng tuyển"
   admin:
     sidebar:
       job: "Quản lý jobs"
